@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoFantasy.States;
 
 namespace MonoFantasy
 {
@@ -12,10 +13,26 @@ namespace MonoFantasy
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public string Release;
+
+        public State _currentState;
+
+        private State _nextState; 
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
+        }
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            Release = "Alpha 1.0";
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
         }
 
         /// <summary>
@@ -27,6 +44,7 @@ namespace MonoFantasy
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -41,6 +59,7 @@ namespace MonoFantasy
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            _currentState = new MenuState(this, graphics.GraphicsDevice, Content);
         }
 
         /// <summary>
@@ -62,7 +81,16 @@ namespace MonoFantasy
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (_nextState != null)
+            {
+                _currentState = _nextState;
+                _nextState = null;
+            }
+
             // TODO: Add your update logic here
+            _currentState.Update(gameTime);
+
+            _currentState.PostUpdate(gameTime);
 
             base.Update(gameTime);
         }
@@ -73,9 +101,10 @@ namespace MonoFantasy
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGray);
 
             // TODO: Add your drawing code here
+            _currentState.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }
