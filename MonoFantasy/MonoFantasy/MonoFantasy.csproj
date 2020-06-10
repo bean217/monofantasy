@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\MenuState.cs" />
+    <Compile Include="States\NewGameMenuState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace MonoFantasy.States
 {
     public class GameState : State
     {
-        public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
+        public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
 
         }

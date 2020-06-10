@@ -19,6 +19,8 @@ namespace MonoFantasy.States
 
         protected MainGame _game;
 
+        protected State _lastState;
+
         #endregion
 
         #region Methods
@@ -27,11 +29,12 @@ namespace MonoFantasy.States
 
         public abstract void PostUpdate(GameTime gameTime);
 
-        public State(MainGame game, GraphicsDevice graphicsDevice, ContentManager content)
+        public State(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState)
         {
             _game = game;
             _graphicsDevice = graphicsDevice;
             _content = content;
+            _lastState = lastState;
         }
 
         public abstract void Update(GameTime gameTime);

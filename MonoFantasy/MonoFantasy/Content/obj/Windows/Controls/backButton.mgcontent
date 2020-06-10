@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Backgrounds/tempMenuBackground.png</SourceFile>
-  <SourceTime>2020-06-08T16:08:50.2982936-04:00</SourceTime>
-  <DestFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Backgrounds/tempMenuBackground.xnb</DestFile>
-  <DestTime>2020-06-10T17:18:05.7031628-04:00</DestTime>
+  <SourceFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Controls/backButton.png</SourceFile>
+  <SourceTime>2020-06-10T17:16:03.8492989-04:00</SourceTime>
+  <DestFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Controls/backButton.xnb</DestFile>
+  <DestTime>2020-06-10T17:18:05.7719649-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

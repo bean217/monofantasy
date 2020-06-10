@@ -17,7 +17,7 @@ namespace MonoFantasy.States
     {
         private List<Component> Components;
 
-        public MenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
+        public MenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, null)
         {
             #region Fonts
 
@@ -81,7 +81,7 @@ namespace MonoFantasy.States
                 Text = "New Game"
             };
 
-            newGameButton.Click += NewGameButton_Click;
+            newGameButton.Click += newGameButton_Click;
 
             var continueGameButton = new Button(buttonTexture, buttonFont)
             {
@@ -123,10 +123,11 @@ namespace MonoFantasy.States
             };
         }
 
-        private void NewGameButton_Click(object sender, EventArgs e)
+        private void newGameButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("New Game");
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
+            _game.ChangeState(new NewGameMenuState(_game, _graphicsDevice, _content, this));
+            
             // Load new State
         }
 
@@ -156,7 +157,7 @@ namespace MonoFantasy.States
 
         public override void PostUpdate(GameTime gameTime)
         {
-            // Remove sprites if they are not needed
+            //
         }
 
         public override void Update(GameTime gameTime)

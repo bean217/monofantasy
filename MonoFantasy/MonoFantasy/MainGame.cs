@@ -59,7 +59,7 @@ namespace MonoFantasy
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            _currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+            _currentState = new MenuState(this, graphics.GraphicsDevice, Content, null);
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace MonoFantasy
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //    Exit();
 
             if (_nextState != null)
             {
