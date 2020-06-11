@@ -19,6 +19,11 @@ namespace MonoFantasy.States
 
         public MenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, null)
         {
+            LoadContent();
+        }
+
+        public override void LoadContent()
+        {
             #region Fonts
 
             var buttonFont = FontLoader.LoadFont("Retron2k/Retron2000.ttf", 36, _graphicsDevice);
@@ -31,7 +36,8 @@ namespace MonoFantasy.States
             #region Textures
 
             var backgroundTexture = _content.Load<Texture2D>("Backgrounds/tempMenuBackground");
-            var buttonTexture = _content.Load<Texture2D>("Controls/TitleButtonInverted");
+            var buttonTexture = _content.Load<Texture2D>("Controls/TitleButton");
+            var hoverButtonTexture = _content.Load<Texture2D>("Controls/TitleButtonInverted");
 
             #endregion
 
@@ -45,9 +51,9 @@ namespace MonoFantasy.States
 
             #region Title
             var monoText = new TextBox(titleFont1, "Mono");
-            
+
             var fantasyText = new TextBox(titleFont2, "fantasy");
-            
+
             float titleWidth = monoText.Size.X + fantasyText.Size.X;
 
             monoText.Position = new Vector2(_game.Window.ClientBounds.Width / 2 - titleWidth / 2,
@@ -65,8 +71,8 @@ namespace MonoFantasy.States
 
             #region Release
 
-            var ReleaseText = new TextBox(buttonFont, $"Release: {game.Release}");
-            ReleaseText.Position = new Vector2(_game.Window.ClientBounds.Width - (5 + (int)buttonFont.MeasureString(ReleaseText.Text).X), 
+            var ReleaseText = new TextBox(buttonFont, $"Release: {_game.Release}");
+            ReleaseText.Position = new Vector2(_game.Window.ClientBounds.Width - (5 + (int)buttonFont.MeasureString(ReleaseText.Text).X),
                 _game.Window.ClientBounds.Height - (5 + (int)buttonFont.MeasureString(ReleaseText.Text).Y));
 
             #endregion
@@ -75,7 +81,7 @@ namespace MonoFantasy.States
 
             #region Buttons
 
-            var newGameButton = new Button(buttonTexture, buttonFont)
+            var newGameButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2, (_game.Window.ClientBounds.Height / 3)),
                 Text = "New Game"
@@ -83,7 +89,7 @@ namespace MonoFantasy.States
 
             newGameButton.Click += newGameButton_Click;
 
-            var continueGameButton = new Button(buttonTexture, buttonFont)
+            var continueGameButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2, (_game.Window.ClientBounds.Height / 3) + buttonTexture.Height * 1.5f),
                 Text = "Continue"
@@ -91,7 +97,7 @@ namespace MonoFantasy.States
 
             continueGameButton.Click += continueGameButton_Click;
 
-            var settingsGameButton = new Button(buttonTexture, buttonFont)
+            var settingsGameButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2, (_game.Window.ClientBounds.Height / 3) + buttonTexture.Height * 3.0f),
                 Text = "Settings"
@@ -99,14 +105,14 @@ namespace MonoFantasy.States
 
             settingsGameButton.Click += settingsGameButton_Click;
 
-            var quitGameButton = new Button(buttonTexture, buttonFont)
+            var quitGameButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2, (_game.Window.ClientBounds.Height / 3) + buttonTexture.Height * 4.5f),
                 Text = "Quit"
             };
 
             quitGameButton.Click += quitGameButton_Click;
-            
+
             #endregion
 
             Components = new List<Component>()
@@ -165,5 +171,7 @@ namespace MonoFantasy.States
             foreach (var component in Components)
                 component.Update(gameTime);
         }
+
+        
     }
 }

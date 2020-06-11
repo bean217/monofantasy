@@ -39,6 +39,13 @@ namespace MonoFantasy.States
 
         public abstract void Update(GameTime gameTime);
 
+        public abstract void LoadContent();
+
+        public void UnloadContent()
+        {
+            _content.Unload();
+        }
+
         #endregion
     }
 }

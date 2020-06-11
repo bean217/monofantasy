@@ -19,6 +19,11 @@ namespace MonoFantasy.States
 
         public NewGameMenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
+            LoadContent();
+        }
+
+        public override void LoadContent()
+        {
             #region Fonts
 
             var buttonFont = FontLoader.LoadFont("Retron2k/Retron2000.ttf", 36, _graphicsDevice);
@@ -29,8 +34,10 @@ namespace MonoFantasy.States
             #region Textures
 
             var backgroundTexture = _content.Load<Texture2D>("Backgrounds/tempMenuBackground");
-            var buttonTexture = _content.Load<Texture2D>("Controls/TitleButtonInverted");
+            var buttonTexture = _content.Load<Texture2D>("Controls/TitleButton");
+            var hoverButtonTexture = _content.Load<Texture2D>("Controls/TitleButtonInverted");
             var backButtonTexture = _content.Load<Texture2D>("Controls/backButton");
+            var hoverBackButtonTexture = _content.Load<Texture2D>("Controls/backButtonInverted");
 
             #endregion
 
@@ -48,7 +55,7 @@ namespace MonoFantasy.States
 
             #region Buttons
 
-            var backButton = new Button(backButtonTexture, null)
+            var backButton = new Button(backButtonTexture, null, hoverBackButtonTexture)
             {
                 Position = new Vector2(25, 25),
                 Text = ""
@@ -56,25 +63,25 @@ namespace MonoFantasy.States
 
             backButton.Click += backButton_Click;
 
-            var saveOneButton = new Button(buttonTexture, buttonFont)
+            var saveOneButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3),
-                Text = "New Game1"
+                Text = "New Game"
             };
 
-            var saveTwoButton = new Button(buttonTexture, buttonFont)
+            var saveTwoButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3 + buttonTexture.Height * 2.0f),
-                Text = "New Game2"
+                Text = "New Game"
             };
 
-            var saveThreeButton = new Button(buttonTexture, buttonFont)
+            var saveThreeButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3 + buttonTexture.Height * 4.0f),
-                Text = "New Game3"
+                Text = "New Game"
             };
 
             #endregion
@@ -117,5 +124,7 @@ namespace MonoFantasy.States
             foreach (var component in Components)
                 component.Update(gameTime);
         }
+
+        
     }
 }

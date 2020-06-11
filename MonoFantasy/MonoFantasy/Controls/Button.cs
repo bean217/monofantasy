@@ -45,6 +45,10 @@ namespace MonoFantasy
 
         public string Text { get; set; }
 
+        public Texture2D HoverTexture;
+
+        public Color HoverPenColor;
+
         #endregion
 
         #region Methods
@@ -54,19 +58,65 @@ namespace MonoFantasy
             Texture = texture;
             Font = font;
             PenColor = Color.Black;
+            HoverTexture = null;
+            HoverPenColor = PenColor;
+        }
+
+        public Button(Texture2D texture, SpriteFont font, Texture2D hoverTexture)
+        {
+            Texture = texture;
+            Font = font;
+            PenColor = Color.Black;
+            HoverTexture = hoverTexture;
+            HoverPenColor = PenColor;
+        }
+
+        public Button(Texture2D texture, SpriteFont font, Texture2D hoverTexture, Color hoverPenColor)
+        {
+            Texture = texture;
+            Font = font;
+            PenColor = Color.Black;
+            HoverTexture = hoverTexture;
+            HoverPenColor = hoverPenColor;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // If not hovering, hue is white
             var color = Color.White;
+            Texture2D texture = Texture;
+            Color penColor = PenColor;
 
             // If hovering, hue is gray
-            if (IsHovering)
-                color = Color.Gray;
+            if (IsHovering) 
+            {
+                if (HoverTexture != null)
+                {
+                    texture = HoverTexture;
+                }
+                else
+                {
+                    color = Color.Gray;
+                }
+
+                if (HoverPenColor != PenColor)
+                {
+                    penColor = HoverPenColor;
+                }
+                /*
+                if (HoverColor == null)
+                {
+                    color = Color.Gray;
+                }
+                else
+                {
+                    color = HoverColor;
+                }
+                */
+            }   
 
             // Draws Button Texture
-            spriteBatch.Draw(Texture, Rectangle, color);
+            spriteBatch.Draw(texture, Rectangle, color);
 
             // Draws Text in center of button if text is not an empty string
             if (!string.IsNullOrEmpty(Text))
@@ -74,7 +124,7 @@ namespace MonoFantasy
                 var x = (Rectangle.X + (Rectangle.Width / 2)) - (Font.MeasureString(Text).X / 2);
                 var y = (Rectangle.Y + (Rectangle.Height / 2)) - (Font.MeasureString(Text).Y / 2);
 
-                spriteBatch.DrawString(Font, Text, new Vector2(x, y), PenColor);
+                spriteBatch.DrawString(Font, Text, new Vector2(x, y), penColor);
             }
         }
 

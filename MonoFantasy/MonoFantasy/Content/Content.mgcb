@@ -37,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:Controls/backButton.png
 
-#begin Controls/squareButton.png
+#begin Controls/backButtonInverted.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Controls/squareButton.png
+/build:Controls/backButtonInverted.png
 
 #begin Controls/TitleButton.png
 /importer:TextureImporter

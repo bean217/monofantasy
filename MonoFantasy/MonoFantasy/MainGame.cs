@@ -83,6 +83,8 @@ namespace MonoFantasy
 
             if (_nextState != null)
             {
+                _currentState.UnloadContent();
+                _nextState.LoadContent();
                 _currentState = _nextState;
                 _nextState = null;
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Controls/TitleButtonInverted.png</SourceFile>
-  <SourceTime>2020-05-29T00:57:16.7663442-04:00</SourceTime>
+  <SourceTime>2020-05-29T00:48:59.6177294-04:00</SourceTime>
   <DestFile>D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Content/Controls/TitleButtonInverted.xnb</DestFile>
-  <DestTime>2020-05-29T14:55:12.3821167-04:00</DestTime>
+  <DestTime>2020-06-11T14:44:30.7220041-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

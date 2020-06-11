@@ -26,4 +26,4 @@ D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\obj\x86\Debug\MonoFa
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\SpriteFontPlus.dll
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Backgrounds\tempMenuBackground.xnb
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Controls\backButton.xnb
-D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Controls\squareButton.xnb
+D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Controls\backButtonInverted.xnb
