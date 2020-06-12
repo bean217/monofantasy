@@ -11,29 +11,32 @@ namespace MonoFantasy.States
 {
     public class GameState : State
     {
+        Texture2D map;
         public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
-
+            LoadContent();
         }
 
         public override void LoadContent()
         {
-            throw new NotImplementedException();
+            map = _content.Load<Texture2D>("32pxmap");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            spriteBatch.Begin();
+            spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
+            spriteBatch.End();
         }
 
         public override void PostUpdate(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

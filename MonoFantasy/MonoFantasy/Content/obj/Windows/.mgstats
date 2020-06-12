@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/32pxmap.png","D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/32pxmap.xnb","TextureProcessor","Texture2DContent",5164,3862613,0.184506
 "D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Backgrounds/tempMenuBackground.png","D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Backgrounds/tempMenuBackground.xnb","TextureProcessor","Texture2DContent",30975,3686485,0.1964808
 "D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Controls/backButton.png","D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Controls/backButton.xnb","TextureProcessor","Texture2DContent",3017,22585,0.0135476
 "D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/Controls/backButtonInverted.png","D:/MonoGame/MonoFantasy/monofantasy/MonoFantasy/MonoFantasy/Content/bin/Windows/Controls/backButtonInverted.xnb","TextureProcessor","Texture2DContent",3025,22585,0.0139616

@@ -70,6 +70,8 @@ namespace MonoFantasy.States
                 Text = "New Game"
             };
 
+            saveOneButton.Click += SaveOneButton_Click;
+
             var saveTwoButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
@@ -77,12 +79,16 @@ namespace MonoFantasy.States
                 Text = "New Game"
             };
 
+            saveTwoButton.Click += SaveTwoButton_Click;
+
             var saveThreeButton = new Button(buttonTexture, buttonFont, hoverButtonTexture, Color.White)
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3 + buttonTexture.Height * 4.0f),
                 Text = "New Game"
             };
+
+            saveThreeButton.Click += SaveThreeButton_Click;
 
             #endregion
 
@@ -101,6 +107,21 @@ namespace MonoFantasy.States
         {
             Console.WriteLine("Back");
             _game.ChangeState(_lastState);
+        }
+
+        private void SaveOneButton_Click(object sender, EventArgs e)
+        {
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this));
+        }
+
+        private void SaveTwoButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveThreeButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

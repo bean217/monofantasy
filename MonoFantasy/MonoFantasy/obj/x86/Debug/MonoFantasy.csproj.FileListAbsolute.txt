@@ -27,3 +27,6 @@ D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debu
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Backgrounds\tempMenuBackground.xnb
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Controls\backButton.xnb
 D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\Controls\backButtonInverted.xnb
+D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Newtonsoft.Json.dll
+D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Newtonsoft.Json.xml
+D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\bin\Windows\x86\Debug\Content\32pxmap.xnb
