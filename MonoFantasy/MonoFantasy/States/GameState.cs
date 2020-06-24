@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MonoFantasy.Logic.Map;
 
 namespace MonoFantasy.States
 {
     public class GameState : State
     {
-        Texture2D map;
+        private Map _map;
+        private Texture2D map;
+        
         public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
             LoadContent();
@@ -28,7 +31,6 @@ namespace MonoFantasy.States
             spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
             spriteBatch.End();
         }
-
         public override void PostUpdate(GameTime gameTime)
         {
             //throw new NotImplementedException();
