@@ -47,6 +47,7 @@
     <Compile Include="Controls\Image.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Logic\Map\Chunk.cs" />
+    <Compile Include="Logic\Map\CollisionLayer.cs" />
     <Compile Include="Logic\Map\Layer.cs" />
     <Compile Include="Logic\Map\Map.cs" />
     <Compile Include="Logic\Player\Player.cs" />

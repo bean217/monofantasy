@@ -14,6 +14,7 @@ namespace MonoFantasy
         [STAThread]
         static void Main()
         {
+            //Logic.Map.CollisionLayer.test(); THIS MUST BE REMOVED LATER
             using (var game = new MainGame())
                 game.Run();
         }
