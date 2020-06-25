@@ -12,6 +12,8 @@ namespace MonoFantasy.Logic.Map
     {
         public Chunk _chunk;
         private int _layerNum;
+        public string layerDir;
+        public static readonly string TILE_FILE = "tiles.txt";
 
         private Tile[,] _tiles;
 
@@ -20,6 +22,17 @@ namespace MonoFantasy.Logic.Map
             _tiles = new Tile[Chunk.WIDTH, Chunk.HEIGHT];
             _chunk = chunk;
             _layerNum = layerNum;
+            layerDir = $"{_chunk._chunkDir}/layer{_layerNum}";
+            BlockData[,] layerBlockData = LayerTileReader.getLayerData($"{layerDir}/{TILE_FILE}", _chunk.chunkTileData);
+            _tiles = new Tile[ConfigInfo.CHUNK_WIDTH, ConfigInfo.CHUNK_HEIGHT];
+            for (int j = 0; j < ConfigInfo.CHUNK_HEIGHT; j++)
+            {
+                for (int i = 0; i < ConfigInfo.CHUNK_WIDTH; i++)
+                {
+                    _tiles[i, j] = new Tile(this, layerBlockData[i, j], _chunk._chunkPosX * ConfigInfo.CHUNK_WIDTH * ConfigInfo.TILE_SIZE,
+                        _chunk._chunkPosY * ConfigInfo.CHUNK_HEIGHT * ConfigInfo.TILE_SIZE, i, j);
+                }
+            }
         }
 
         public void LoadContent()
@@ -27,11 +40,36 @@ namespace MonoFantasy.Logic.Map
             // Loading tiles will requies reading from a chunk text file with
             // texture mappings. These texture mappings will be used to relate
             // to a 32x32px texture in the texture map image file.
+            for (int j = 0; j < ConfigInfo.CHUNK_HEIGHT; j++)
+            {
+                for (int i = 0; i < ConfigInfo.CHUNK_WIDTH; i++)
+                {
+                    _tiles[i, j].LoadContent();
+                }
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             
+            for (int j = 0; j < ConfigInfo.CHUNK_HEIGHT; j++)
+            {
+                for (int i = 0; i < ConfigInfo.CHUNK_WIDTH; i++)
+                {
+                    _tiles[i, j].Draw(gameTime, spriteBatch);
+                }
+            }
+        }
+
+        public void Update()
+        {
+            for (int j = 0; j < ConfigInfo.CHUNK_HEIGHT; j++)
+            {
+                for (int i = 0; i < ConfigInfo.CHUNK_WIDTH; i++)
+                {
+                    _tiles[i, j].Update();
+                }
+            }
         }
 
     }

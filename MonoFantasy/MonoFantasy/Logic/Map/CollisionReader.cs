@@ -10,13 +10,13 @@ namespace MonoFantasy.Logic.Map
     public static class CollisionReader
     {
         // Reads a collision file of 0s and 1s to determine collideable blocks between player and world
-        public static Collision[,] read(string collisionFile, int chunkWidth, int chunkHeight)
+        public static Collision[,] read(string collisionFile)
         {
             StreamWriter sw = new StreamWriter("base.txt");
             sw.WriteLine("Test");
             sw.Close();
 
-            Collision[,] collisions = new Collision[chunkWidth, chunkHeight];
+            Collision[,] collisions = new Collision[ConfigInfo.CHUNK_WIDTH, ConfigInfo.CHUNK_HEIGHT];
             StreamReader sr = null;
             try
             {
@@ -30,9 +30,9 @@ namespace MonoFantasy.Logic.Map
                     foreach (string box in strLine)
                     {
                         collisions[x, y] = box.Equals("0") ? Collision.NO_COLLIDE : Collision.COLLIDE;
-                        x = (x + 1) % chunkWidth;
+                        x = (x + 1) % ConfigInfo.CHUNK_WIDTH;
                     }
-                    y = (y + 1) % chunkHeight;
+                    y = (y + 1) % ConfigInfo.CHUNK_HEIGHT;
                 }
             } catch (Exception e)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoFantasy.Content.ITexture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,37 +11,46 @@ namespace MonoFantasy.Logic.Map
 {
     class Tile
     {
+        public BlockData blockData;
         private Layer _layer;
         private static Vector2 size;
-        private int _tilePosX;
-        private int _tilePosY;
         private Vector2 drawPoint;
 
-        private Texture2D _chunkTexture;
+        private Rectangle drawRect;
 
-        private Rectangle rectangle;
-        private Texture2D texture;
+        private ITexture texture;
 
-        public Tile(Layer layer, TextureMap texture, int tilePosX, int tilePosY)
+        public Tile(Layer layer, BlockData blockData, int chunkPosX, int chunkPosY, int tilePosX, int tilePosY)
         {
             _layer = layer;
-            _tilePosX = tilePosX;
-            _tilePosY = tilePosY;
-            size = new Vector2(32, 32);
-            drawPoint = new Vector2(layer._chunk._chunkPosX + tilePosX * 32, layer._chunk._chunkPosY + tilePosY * 32);
-            rectangle = new Rectangle((int)drawPoint.X, (int)drawPoint.Y, (int)size.X, (int)size.Y);
-
+            size = new Vector2(ConfigInfo.TILE_SIZE, ConfigInfo.TILE_SIZE);
+            drawPoint = new Vector2(chunkPosX + tilePosX * ConfigInfo.TILE_SIZE, chunkPosY + tilePosY * ConfigInfo.TILE_SIZE);
+            drawRect = new Rectangle((int)drawPoint.X, (int)drawPoint.Y, (int)size.X, (int)size.Y);
+            this.blockData = blockData;
+            if (blockData.isStatic)
+            {
+                texture = new StaticTexture2(null, drawRect, blockData);
+            } else
+            {
+                texture = new AnimatedTexture2(null, drawRect, blockData);
+            }
+            // static: a texture image/map to reference, a rectangle for where the image is drawn in the world
+            // animated: same as static, but include number of frames, image area vector, and frame change period (per 30 frames)
         }
 
         public void LoadContent()
         {
-            _chunkTexture = _layer._chunk.tileAtlas;
-            texture = 
+            texture.setTexture(_layer._chunk.tileAtlas);
         }
 
-        private void setTexture()
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
+            texture.Draw(gameTime, spriteBatch);
+        }
+
+        public void Update()
+        {
+            texture.Update();
         }
     }
 }

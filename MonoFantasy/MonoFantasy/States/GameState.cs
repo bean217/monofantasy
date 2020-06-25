@@ -34,8 +34,10 @@ namespace MonoFantasy.States
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
+            //spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
+            _map.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+
         }
         public override void PostUpdate(GameTime gameTime)
         {
@@ -45,6 +47,7 @@ namespace MonoFantasy.States
         public override void Update(GameTime gameTime)
         {
             //throw new NotImplementedException();
+            _map.Update();
         }
     }
 }

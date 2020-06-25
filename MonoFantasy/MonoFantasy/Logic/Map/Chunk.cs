@@ -16,8 +16,9 @@ namespace MonoFantasy.Logic.Map
         // config file info
         Dictionary<string, string> _config;
         // chunk filename
-        private string _chunkDir;
+        public string _chunkDir;
         // chunk X position on the world map
+        public static readonly string TILE_TEXTURE_DATA_FILE = "tile_texture_data.txt";
         public int _chunkPosX;
         // chunk Y position on the world map
         public int _chunkPosY;
@@ -32,6 +33,8 @@ namespace MonoFantasy.Logic.Map
         private List<Layer> _layers;
         // 2D array of collision layer
         private Collision[,] _collisionLayer;
+        // Dictionary of all tile textures in chunk
+        public Dictionary<string, BlockData> chunkTileData;
 
         public Chunk(Map map, int chunkPosX, int chunkPosY)
         {
@@ -39,6 +42,8 @@ namespace MonoFantasy.Logic.Map
             _chunkPosY = chunkPosY;
             _map = map;
             _chunkDir = $"{_map._gameState._saveDir}/world/chunk{_chunkPosX}x{_chunkPosY}";
+            _layers = new List<Layer>();
+            chunkTileData = ChunkTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
             readConfig();
         }
 
@@ -53,10 +58,17 @@ namespace MonoFantasy.Logic.Map
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             foreach (var layer in _layers)
                 layer.Draw(gameTime, spriteBatch);
-            spriteBatch.End();
+            //spriteBatch.Draw(tileAtlas, new Rectangle(0, 0, 96, 128), Color.White);
+            //spriteBatch.End();
+        }
+
+        public void Update()
+        {
+            foreach (var layer in _layers)
+                layer.Update();
         }
 
         private void readConfig()
@@ -73,7 +85,7 @@ namespace MonoFantasy.Logic.Map
                     _config.Add(read[0], read[1]);
                 }
                 // Reads collision file in chunk file and returns a 2D array of Collision values
-                _collisionLayer = CollisionReader.read($"{_chunkDir}/{_config[ConfigInfo.COLLISION_FILE_REF]}", _chunkPosX, _chunkPosY);
+                _collisionLayer = CollisionReader.read($"{_chunkDir}/{_config[ConfigInfo.COLLISION_FILE_REF]}");
                 try
                 {
                     for (int layerNum = 0; layerNum < int.Parse(_config[ConfigInfo.NUM_LAYERS_REF]); layerNum++)
@@ -84,6 +96,7 @@ namespace MonoFantasy.Logic.Map
                 {
                     Console.WriteLine($"ERROR: {e.Message}");
                     Console.WriteLine(e.StackTrace);
+                    throw new Exception(e.Message, e);
                 }
 
             } catch (Exception e)

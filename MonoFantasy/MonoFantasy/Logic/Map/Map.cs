@@ -1,4 +1,6 @@
-﻿using MonoFantasy.States;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoFantasy.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,28 @@ namespace MonoFantasy.Logic.Map
         {
             foreach (var chunk in _chunks)
                 chunk.LoadContent();
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    _chunks[x, y].Draw(gameTime, spriteBatch);
+                }
+            }
+        }
+
+        public void Update()
+        {
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    _chunks[x, y].Update();
+                }
+            }
         }
     }
 }
