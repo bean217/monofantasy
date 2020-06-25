@@ -10,6 +10,8 @@ namespace MonoFantasy
     /// </summary>
     public class MainGame : Game
     {
+        public static readonly string ROOT_DIR = @"../../../..";
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 

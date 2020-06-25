@@ -12,16 +12,21 @@ namespace MonoFantasy.States
 {
     public class GameState : State
     {
+        public string _saveDir;
+        public int _gameNum;
         private Map _map;
         private Texture2D map;
         
-        public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
+        public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState, int gameNum) : base(game, graphicsDevice, content, lastState)
         {
+            _saveDir = $"{MainGame.ROOT_DIR}/saves/save{gameNum}";
+            _gameNum = gameNum;
             LoadContent();
         }
 
         public override void LoadContent()
         {
+            _map = new Map(this);
             map = _content.Load<Texture2D>("32pxmap");
         }
 

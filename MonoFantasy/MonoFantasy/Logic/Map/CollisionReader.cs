@@ -7,8 +7,44 @@ using System.IO;
 
 namespace MonoFantasy.Logic.Map
 {
-    class CollisionLayer
+    public static class CollisionReader
     {
+        // Reads a collision file of 0s and 1s to determine collideable blocks between player and world
+        public static Collision[,] read(string collisionFile, int chunkWidth, int chunkHeight)
+        {
+            StreamWriter sw = new StreamWriter("base.txt");
+            sw.WriteLine("Test");
+            sw.Close();
+
+            Collision[,] collisions = new Collision[chunkWidth, chunkHeight];
+            StreamReader sr = null;
+            try
+            {
+                sr = new StreamReader(collisionFile);
+                string line;
+                int x = 0;
+                int y = 0;
+                while((line = sr.ReadLine()) != null)
+                {
+                    var strLine = line.Split(' ');
+                    foreach (string box in strLine)
+                    {
+                        collisions[x, y] = box.Equals("0") ? Collision.NO_COLLIDE : Collision.COLLIDE;
+                        x = (x + 1) % chunkWidth;
+                    }
+                    y = (y + 1) % chunkHeight;
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine($"ERROR: {e.Message}");
+            } finally
+            {
+                if (sr != null)
+                    sr.Close();
+            }
+            return collisions;
+        }
+
         public static void test()
         {
             StreamWriter sw = null;

@@ -111,7 +111,7 @@ namespace MonoFantasy.States
 
         private void SaveOneButton_Click(object sender, EventArgs e)
         {
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this));
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 1));
         }
 
         private void SaveTwoButton_Click(object sender, EventArgs e)

@@ -47,9 +47,12 @@
     <Compile Include="Controls\Image.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Logic\Map\Chunk.cs" />
-    <Compile Include="Logic\Map\CollisionLayer.cs" />
+    <Compile Include="Logic\Map\Collision.cs" />
+    <Compile Include="Logic\Map\CollisionReader.cs" />
+    <Compile Include="Logic\Map\ConfigInfo.cs" />
     <Compile Include="Logic\Map\Layer.cs" />
     <Compile Include="Logic\Map\Map.cs" />
+    <Compile Include="Logic\Map\Tile.cs" />
     <Compile Include="Logic\Player\Player.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
