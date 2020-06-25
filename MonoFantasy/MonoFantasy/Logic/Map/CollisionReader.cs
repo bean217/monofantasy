@@ -52,14 +52,14 @@ namespace MonoFantasy.Logic.Map
             int[,] collisions = new int[41, 23];
             try 
             {
-                sw = new StreamWriter(@"C:\Users\Benjamin Piro\Desktop\writing\test.txt");
+                sw = new StreamWriter(@"D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\saves\save1\world\chunk0x0\layer0\tiles.txt");
                 for (int i = 0; i < 23; i++)
                 {
                     for (int j = 0; j < 41; j++)
                     {
                         if ((i >= 10 && i <= 15) && (j >= 20 && j <= 25))
                         {
-                            sw.Write("1");
+                            sw.Write("0");
                         } else
                         {
                             sw.Write("0");

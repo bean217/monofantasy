@@ -15,6 +15,7 @@ namespace MonoFantasy
         static void Main()
         {
             //Logic.Map.CollisionReader.read(@"D:\MonoGame\MonoFantasy\monofantasy\MonoFantasy\MonoFantasy\saves\save1\world\map\chunk0x0\collision.txt", 41, 23);
+            Logic.Map.CollisionReader.test();
             using (var game = new MainGame())
                 game.Run();
         }

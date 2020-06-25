@@ -10,7 +10,7 @@ namespace MonoFantasy.Logic.Map
 {
     class Layer
     {
-        private Chunk _chunk;
+        public Chunk _chunk;
         private int _layerNum;
 
         private Tile[,] _tiles;

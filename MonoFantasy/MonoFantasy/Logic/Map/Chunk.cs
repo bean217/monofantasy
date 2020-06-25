@@ -18,16 +18,16 @@ namespace MonoFantasy.Logic.Map
         // chunk filename
         private string _chunkDir;
         // chunk X position on the world map
-        private int _chunkPosX;
+        public int _chunkPosX;
         // chunk Y position on the world map
-        private int _chunkPosY;
+        public int _chunkPosY;
         // number of tiles in chunk width
         public static readonly int WIDTH = 41;
         // number of tiles in chunk height
         public static readonly int HEIGHT = 23;
 
         // Atlas of tile textures
-        Texture2D tileAtlas;
+        public Texture2D tileAtlas;
         // collection of graphic layers
         private List<Layer> _layers;
         // 2D array of collision layer

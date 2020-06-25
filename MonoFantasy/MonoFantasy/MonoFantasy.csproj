@@ -53,6 +53,7 @@
     <Compile Include="Logic\Map\Layer.cs" />
     <Compile Include="Logic\Map\Map.cs" />
     <Compile Include="Logic\Map\Tile.cs" />
+    <Compile Include="Logic\Map\TextureMap.cs" />
     <Compile Include="Logic\Player\Player.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
