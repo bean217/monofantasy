@@ -19,7 +19,7 @@ namespace MonoFantasy.States
 
         public NewGameMenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
-            LoadContent();
+            //LoadContent();
         }
 
         public override void LoadContent()

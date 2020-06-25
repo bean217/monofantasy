@@ -21,12 +21,13 @@ namespace MonoFantasy.States
         {
             _saveDir = $"{MainGame.ROOT_DIR}/saves/save{gameNum}";
             _gameNum = gameNum;
-            LoadContent();
+            //LoadContent();
         }
 
         public override void LoadContent()
         {
             _map = new Map(this);
+            _map.LoadContent();
             map = _content.Load<Texture2D>("32pxmap");
         }
 

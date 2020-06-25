@@ -26,6 +26,8 @@ namespace MonoFantasy.Logic.Map
         // number of tiles in chunk height
         public static readonly int HEIGHT = 23;
 
+        // Atlas of tile textures
+        Texture2D tileAtlas;
         // collection of graphic layers
         private List<Layer> _layers;
         // 2D array of collision layer
@@ -42,6 +44,9 @@ namespace MonoFantasy.Logic.Map
 
         public void LoadContent()
         {
+            FileStream fileStream = new FileStream($"{_chunkDir}/texture_map.png", FileMode.Open);
+            tileAtlas = Texture2D.FromStream(_map._gameState._graphicsDevice, fileStream);
+            fileStream.Dispose();
             foreach (var layer in _layers)
                 layer.LoadContent();
         }
@@ -69,6 +74,17 @@ namespace MonoFantasy.Logic.Map
                 }
                 // Reads collision file in chunk file and returns a 2D array of Collision values
                 _collisionLayer = CollisionReader.read($"{_chunkDir}/{_config[ConfigInfo.COLLISION_FILE_REF]}", _chunkPosX, _chunkPosY);
+                try
+                {
+                    for (int layerNum = 0; layerNum < int.Parse(_config[ConfigInfo.NUM_LAYERS_REF]); layerNum++)
+                    {
+                        _layers.Add(new Layer(this, layerNum));
+                    }
+                } catch (Exception e)
+                {
+                    Console.WriteLine($"ERROR: {e.Message}");
+                    Console.WriteLine(e.StackTrace);
+                }
 
             } catch (Exception e)
             {

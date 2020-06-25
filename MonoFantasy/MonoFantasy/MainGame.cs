@@ -61,7 +61,8 @@ namespace MonoFantasy
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            _currentState = new MenuState(this, graphics.GraphicsDevice, Content, null);
+            _currentState = new MenuState(this, graphics.GraphicsDevice, Content);
+            _currentState.LoadContent();
         }
 
         /// <summary>

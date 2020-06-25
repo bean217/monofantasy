@@ -15,7 +15,7 @@ namespace MonoFantasy.States
 
         protected ContentManager _content;
         
-        protected GraphicsDevice _graphicsDevice;
+        public GraphicsDevice _graphicsDevice;
 
         protected MainGame _game;
 
