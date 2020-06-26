@@ -116,12 +116,12 @@ namespace MonoFantasy.States
 
         private void SaveTwoButton_Click(object sender, EventArgs e)
         {
-
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 2));
         }
 
         private void SaveThreeButton_Click(object sender, EventArgs e)
         {
-
+            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 3));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

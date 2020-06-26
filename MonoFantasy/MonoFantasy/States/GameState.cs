@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonoFantasy.Logic.Map;
+using MonoFantasy.Content.DirectoryCopy;
 
 namespace MonoFantasy.States
 {
@@ -21,6 +22,7 @@ namespace MonoFantasy.States
         {
             _saveDir = $"saves/save{gameNum}";
             _gameNum = gameNum;
+            CopyDir.DeepCopy("world", $"{_saveDir}/world");
             //LoadContent();
         }
 

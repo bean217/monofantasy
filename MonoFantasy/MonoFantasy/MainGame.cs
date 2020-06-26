@@ -29,7 +29,7 @@ namespace MonoFantasy
 
         public MainGame()
         {
-            Directory.SetCurrentDirectory(@"../../../../");
+            Directory.SetCurrentDirectory(@"../../../..");
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
