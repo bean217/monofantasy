@@ -19,7 +19,7 @@ namespace MonoFantasy.States
         
         public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState, int gameNum) : base(game, graphicsDevice, content, lastState)
         {
-            _saveDir = $"{MainGame.ROOT_DIR}/saves/save{gameNum}";
+            _saveDir = $"saves/save{gameNum}";
             _gameNum = gameNum;
             //LoadContent();
         }

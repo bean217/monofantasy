@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoFantasy.States;
+using System;
+using System.IO;
 
 namespace MonoFantasy
 {
@@ -10,7 +12,6 @@ namespace MonoFantasy
     /// </summary>
     public class MainGame : Game
     {
-        public static readonly string ROOT_DIR = @"../../../..";
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -28,6 +29,7 @@ namespace MonoFantasy
 
         public MainGame()
         {
+            Directory.SetCurrentDirectory(@"../../../../");
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 

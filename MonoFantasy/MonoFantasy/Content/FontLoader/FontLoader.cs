@@ -11,7 +11,7 @@ namespace MonoFantasy.Content.FontLoader
 {
     public static class FontLoader
     {
-        public static string RootDirectory = "../../../../Content/Fonts/";
+        public static string RootDirectory = "Content/Fonts/";
         public static SpriteFont LoadFont(string fileLocation, int fontSize, GraphicsDevice graphicsDevice)
         {
             return TtfFontBaker.Bake(File.ReadAllBytes(RootDirectory + fileLocation),
