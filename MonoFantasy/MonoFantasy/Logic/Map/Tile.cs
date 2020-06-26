@@ -40,7 +40,7 @@ namespace MonoFantasy.Logic.Map
 
         public void LoadContent()
         {
-            texture.setTexture(_layer._chunk.tileAtlas);
+            texture.setTexture(_layer._chunk._map.tileAtlas);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

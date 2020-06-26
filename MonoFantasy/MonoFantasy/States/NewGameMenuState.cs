@@ -68,7 +68,7 @@ namespace MonoFantasy.States
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3),
-                Text = System.IO.Directory.Exists("saves/save1/world") ? "Ongoing Game" : "New Game"
+                Text = System.IO.Directory.Exists("saves/save1/game") ? "Ongoing Game" : "New Game"
             };
 
             saveOneButton.Click += SaveOneButton_Click;
@@ -77,7 +77,7 @@ namespace MonoFantasy.States
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3 + buttonTexture.Height * 2.0f),
-                Text = System.IO.Directory.Exists("saves/save2/world") ? "Ongoing Game" : "New Game"
+                Text = System.IO.Directory.Exists("saves/save2/game") ? "Ongoing Game" : "New Game"
             };
 
             saveTwoButton.Click += SaveTwoButton_Click;
@@ -86,7 +86,7 @@ namespace MonoFantasy.States
             {
                 Position = new Vector2(_game.Window.ClientBounds.Width / 2 - buttonTexture.Width / 2,
                 _game.Window.ClientBounds.Height / 3 + buttonTexture.Height * 4.0f),
-                Text = System.IO.Directory.Exists("saves/save3/world") ? "Ongoing Game" : "New Game"
+                Text = System.IO.Directory.Exists("saves/save3/game") ? "Ongoing Game" : "New Game"
             };
 
             saveThreeButton.Click += SaveThreeButton_Click;
@@ -112,7 +112,7 @@ namespace MonoFantasy.States
 
         private void SaveOneButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save1/world";
+            string dir = "saves/save1/game";
             if (System.IO.Directory.Exists(dir)) 
             {
                 // Should use threading at some point later
@@ -125,7 +125,7 @@ namespace MonoFantasy.States
 
         private void SaveTwoButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save2/world";
+            string dir = "saves/save2/game";
             if (System.IO.Directory.Exists(dir))
             {
                 // Should use threading at some point later
@@ -138,7 +138,7 @@ namespace MonoFantasy.States
 
         private void SaveThreeButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save3/world";
+            string dir = "saves/save3/game";
             if (System.IO.Directory.Exists(dir))
             {
                 // Should use threading at some point later

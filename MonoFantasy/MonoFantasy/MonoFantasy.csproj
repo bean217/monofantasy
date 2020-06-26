@@ -45,6 +45,7 @@
     <Compile Include="Content\FontLoader\FontLoader.cs" />
     <Compile Include="Content\ITexture\AnimatedTexture2.cs" />
     <Compile Include="Content\ITexture\ITexture.cs" />
+    <Compile Include="Content\ITexture\LoadTexture.cs" />
     <Compile Include="Content\ITexture\StaticTexture2.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Component.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="Logic\Map\LayerTileReader.cs" />
     <Compile Include="Logic\Map\Map.cs" />
     <Compile Include="Logic\Map\Tile.cs" />
-    <Compile Include="Logic\Map\ChunkTextureReader.cs" />
+    <Compile Include="Logic\Map\MapTextureReader.cs" />
     <Compile Include="Logic\Player\Player.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />

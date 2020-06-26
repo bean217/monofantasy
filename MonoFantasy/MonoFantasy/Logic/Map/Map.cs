@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoFantasy.Content.ITexture;
 using MonoFantasy.States;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,19 @@ namespace MonoFantasy.Logic.Map
         public readonly static string CONFIG_FILENAME = "config.txt";
         public GameState _gameState;
         private Chunk[,] _chunks;
+        public string _mapDir;
+
+        public static readonly string TEXTURE_MAPPINGS_FILE = "texture_mappings.txt";
+        public Dictionary<string, BlockData> chunkTileData;
+
+        public Texture2D tileAtlas;
 
         public Map(GameState gameState)
         {
             _chunks = new Chunk[WIDTH, HEIGHT];
             _gameState = gameState;
+            _mapDir = $"{_gameState._saveDir}/game/world";
+            chunkTileData = MapTextureReader.getChunkTiles($"{_mapDir}/{TEXTURE_MAPPINGS_FILE}");
             for (int y = 0; y < HEIGHT; y++)
             {
                 for (int x = 0; x < WIDTH; x++)
@@ -34,6 +43,7 @@ namespace MonoFantasy.Logic.Map
 
         public void LoadContent()
         {
+            tileAtlas = LoadTexture.Load(_gameState._graphicsDevice, $"{_mapDir}/texture_map.png");
             foreach (var chunk in _chunks)
                 chunk.LoadContent();
         }

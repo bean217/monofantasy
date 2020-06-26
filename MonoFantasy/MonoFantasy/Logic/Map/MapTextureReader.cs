@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MonoFantasy.Logic.Map
 {
-    public static class ChunkTextureReader
+    public static class MapTextureReader
     {
         public static Dictionary<string, BlockData> getChunkTiles(string tileInfoFilename)
         {

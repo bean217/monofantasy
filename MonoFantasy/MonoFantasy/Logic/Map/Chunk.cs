@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoFantasy.Content.ITexture;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,7 @@ namespace MonoFantasy.Logic.Map
     class Chunk
     {
         // ref to map
-        private Map _map;
+        public Map _map;
         // config file info
         Dictionary<string, string> _config;
         // chunk filename
@@ -27,8 +28,6 @@ namespace MonoFantasy.Logic.Map
         // number of tiles in chunk height
         public static readonly int HEIGHT = 23;
 
-        // Atlas of tile textures
-        public Texture2D tileAtlas;
         // collection of graphic layers
         private List<Layer> _layers;
         // 2D array of collision layer
@@ -41,17 +40,14 @@ namespace MonoFantasy.Logic.Map
             _chunkPosX = chunkPosX;
             _chunkPosY = chunkPosY;
             _map = map;
-            _chunkDir = $"{_map._gameState._saveDir}/world/chunk{_chunkPosX}x{_chunkPosY}";
+            _chunkDir = $"{_map._gameState._saveDir}/game/world/chunk{_chunkPosX}x{_chunkPosY}";
             _layers = new List<Layer>();
-            chunkTileData = ChunkTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
+            chunkTileData = MapTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
             readConfig();
         }
 
         public void LoadContent()
         {
-            FileStream fileStream = new FileStream($"{_chunkDir}/texture_map.png", FileMode.Open);
-            tileAtlas = Texture2D.FromStream(_map._gameState._graphicsDevice, fileStream);
-            fileStream.Dispose();
             foreach (var layer in _layers)
                 layer.LoadContent();
         }

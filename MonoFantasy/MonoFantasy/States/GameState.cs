@@ -22,7 +22,7 @@ namespace MonoFantasy.States
         {
             _saveDir = $"saves/save{gameNum}";
             _gameNum = gameNum;
-            CopyDir.DeepCopy("world", $"{_saveDir}/world");
+            CopyDir.DeepCopy("game", $"{_saveDir}/game");
             //LoadContent();
         }
 
