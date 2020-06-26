@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MonoFantasy.States
@@ -112,8 +113,13 @@ namespace MonoFantasy.States
         private void SaveOneButton_Click(object sender, EventArgs e)
         {
             string dir = "saves/save1/world";
-            if (System.IO.Directory.Exists(dir))
-                System.IO.Directory.Delete(dir, true);
+            if (System.IO.Directory.Exists(dir)) 
+            {
+                // Should use threading at some point later
+                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
+                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+            }
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 1));
         }
 
@@ -121,7 +127,12 @@ namespace MonoFantasy.States
         {
             string dir = "saves/save2/world";
             if (System.IO.Directory.Exists(dir))
-                System.IO.Directory.Delete(dir, true);
+            {
+                // Should use threading at some point later
+                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
+                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+            }
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 2));
         }
 
@@ -129,7 +140,12 @@ namespace MonoFantasy.States
         {
             string dir = "saves/save3/world";
             if (System.IO.Directory.Exists(dir))
-                System.IO.Directory.Delete(dir, true);
+            {
+                // Should use threading at some point later
+                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
+                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+            }
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 3));
         }
 
