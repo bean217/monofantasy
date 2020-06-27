@@ -40,7 +40,7 @@ namespace MonoFantasy.Logic.Map
             _chunkPosX = chunkPosX;
             _chunkPosY = chunkPosY;
             _map = map;
-            _chunkDir = $"{_map._gameState._saveDir}/game/world/chunk{_chunkPosX}x{_chunkPosY}";
+            _chunkDir = $"{_map._mapDir}/chunk{_chunkPosX}x{_chunkPosY}";
             _layers = new List<Layer>();
             chunkTileData = MapTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
             readConfig();

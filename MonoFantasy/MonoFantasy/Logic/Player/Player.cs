@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoFantasy.Content.ITexture;
 using MonoFantasy.Logic.Map;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,16 @@ using System.Threading.Tasks;
 
 namespace MonoFantasy.Logic.Player
 {
-    abstract class Player
+    class Player
     {
         public Map.Map map;
         public int gameNum;
         public Data initPlayerData;
         public Vector2 Position;
+        public GraphicsDevice graphics;
+        public string playerDir;
+
+        private Texture2D texture;
 
         public Player(Map.Map map)
         {
@@ -24,36 +29,39 @@ namespace MonoFantasy.Logic.Player
             gameNum = map._gameState._gameNum;
             initPlayerData = InitReader.Read(gameNum);
             Position = new Vector2(initPlayerData.spawn.X, initPlayerData.spawn.Y);
+            graphics = map._gameState._graphicsDevice;
+            playerDir = $"{map._gameState._gameDir}/player";
         }
 
         public void LoadContent()
         {
-
+            texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
         }
 
         public void Update()
         {
+            int speed = 4;
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                Position += new Vector2(0, 1);
+                Position += new Vector2(0, -1) * speed;
             } 
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                Position += new Vector2(0, -1);
+                Position += new Vector2(0, 1) * speed;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                Position += new Vector2(1, 0);
+                Position += new Vector2(1, 0) * speed;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                Position += new Vector2(-1, 0);
+                Position += new Vector2(-1, 0) * speed;
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, texture.Width * 2, texture.Height * 2), Color.White);
         }
 
 
@@ -86,10 +94,10 @@ namespace MonoFantasy.Logic.Player
                 StreamReader sr = null;
                 try
                 {
-                    string dir = $"saves/save{saveNum}";
-                    if (!Directory.Exists(dir))
-                        throw new DirectoryNotFoundException($"Directory not found: {Directory.GetCurrentDirectory()}/{dir}");
-                    sr = new StreamReader(dir);
+                    string file = $"saves/save{saveNum}/game/player/init.txt";
+                    if (!File.Exists(file))
+                        throw new FileNotFoundException($"Directory not found: {Directory.GetCurrentDirectory()}/{file}");
+                    sr = new StreamReader(file);
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
@@ -97,13 +105,15 @@ namespace MonoFantasy.Logic.Player
                         if (line[0].Equals('#'))
                             continue;
                         string[] strLine = line.Split('=');
+                        Console.WriteLine("                   PRINTING");
+                        Console.WriteLine(line);
                         initData[strLine[0].ToLower()] = strLine[1];
                     }
 
                 }
-                catch (DirectoryNotFoundException dnfe)
+                catch (FileNotFoundException fnfe)
                 {
-                    throw dnfe;
+                    throw fnfe;
                 }
                 catch (Exception e)
                 {

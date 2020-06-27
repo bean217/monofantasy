@@ -8,19 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using MonoFantasy.Logic.Map;
 using MonoFantasy.Content.DirectoryCopy;
+using MonoFantasy.Logic.Player;
 
 namespace MonoFantasy.States
 {
     public class GameState : State
     {
         public string _saveDir;
+        public string _gameDir;
         public int _gameNum;
         private Map _map;
         private Texture2D map;
+
+        private Player player;
         
         public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState, int gameNum) : base(game, graphicsDevice, content, lastState)
         {
             _saveDir = $"saves/save{gameNum}";
+            _gameDir = $"{_saveDir}/game";
             _gameNum = gameNum;
             CopyDir.DeepCopy("game", $"{_saveDir}/game");
             //LoadContent();
@@ -30,6 +35,12 @@ namespace MonoFantasy.States
         {
             _map = new Map(this);
             _map.LoadContent();
+            
+            #region TemporaryLoad
+            player = new Player(_map);
+            player.LoadContent();
+            #endregion
+            
             map = _content.Load<Texture2D>("32pxmap");
         }
 
@@ -38,6 +49,11 @@ namespace MonoFantasy.States
             spriteBatch.Begin();
             //spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
             _map.Draw(gameTime, spriteBatch);
+
+            #region TemporaryDraw
+            player.Draw(gameTime, spriteBatch);
+            #endregion
+
             spriteBatch.End();
 
         }
@@ -50,6 +66,10 @@ namespace MonoFantasy.States
         {
             //throw new NotImplementedException();
             _map.Update();
+
+            #region TemporaryUpdate
+            player.Update();
+            #endregion
         }
     }
 }
