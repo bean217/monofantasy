@@ -43,21 +43,7 @@ namespace MonoFantasy.Logic.Player
             //Update Map
             map.Update();
 
-            //Update Player Movement
-            var velocity = new Vector2();
-            var speed = 3f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-                velocity.Y = -speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
-                velocity.Y = speed;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-                velocity.X = -speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
-                velocity.X = speed;
-
-            Position += velocity;
+            PositionUpdate();
         }
 
         //This method will be fixed later to implement player sprite animation
@@ -67,13 +53,46 @@ namespace MonoFantasy.Logic.Player
             map.Draw(gameTime, spriteBatch);
 
             //Draw Player
-            int playerWidth = texture.Width * 2;
-            int playerHeight = texture.Height * 2;
-            spriteBatch.Draw(texture, new Rectangle((int)Position.X - (playerWidth / 2), (int)Position.Y - (playerWidth / 2), playerWidth, playerHeight), 
+            spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, Rectangle.Height), 
                 null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.5f);
             
         }
 
+        private void PositionUpdate()
+        {
+            //Update Player Movement
+            var velocity = new Vector2();
+            var speed = 3f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+                velocity.Y += -speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+                velocity.Y += speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+                velocity.X += -speed;
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+                velocity.X += speed;
+
+            Vector2 newPosition = Position;
+            newPosition += velocity;
+
+            float minPosX = 0;
+            float minPosY = 0;
+            float maxPosX = ConfigInfo.MAP_WIDTH * ConfigInfo.CHUNK_WIDTH * ConfigInfo.TILE_SIZE - Rectangle.Width;
+            float maxPosY = ConfigInfo.MAP_HEIGHT * ConfigInfo.CHUNK_HEIGHT * ConfigInfo.TILE_SIZE - Rectangle.Height;
+            
+            if (newPosition.X < minPosX)
+                newPosition.X = minPosX;
+            else if (newPosition.X > maxPosX)
+                newPosition.X = maxPosX;
+
+            if (newPosition.Y < minPosY)
+                newPosition.Y = minPosY;
+            else if (newPosition.Y > maxPosY)
+                newPosition.Y = maxPosY;
+            
+            Position = newPosition;
+        }
 
         public Vector2 getPosition()
         {

@@ -13,9 +13,9 @@ namespace MonoFantasy.Logic.Map
     class Map
     {
         // Number of chunks (width)
-        public readonly static int WIDTH = 1;
+        private int WIDTH;
         // Number of chunks (height)
-        public readonly static int HEIGHT = 1;
+        private int HEIGHT;
         public readonly static string CONFIG_FILENAME = "config.txt";
         public GameState _gameState;
         private Chunk[,] _chunks;
@@ -28,6 +28,8 @@ namespace MonoFantasy.Logic.Map
 
         public Map(GameState gameState)
         {
+            WIDTH = ConfigInfo.MAP_WIDTH;
+            HEIGHT = ConfigInfo.MAP_HEIGHT;
             _chunks = new Chunk[WIDTH, HEIGHT];
             _gameState = gameState;
             _mapDir = $"{_gameState._saveDir}/game/world";
