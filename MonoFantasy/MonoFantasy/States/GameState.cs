@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MonoFantasy.Logic.Map;
 using MonoFantasy.Content.DirectoryCopy;
 using MonoFantasy.Logic.Player;
+using MonoFantasy.Logic.Camera;
 
 namespace MonoFantasy.States
 {
@@ -21,6 +22,7 @@ namespace MonoFantasy.States
         private Texture2D map;
 
         private Player player;
+        private Camera camera;
         
         public GameState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState, int gameNum) : base(game, graphicsDevice, content, lastState)
         {
@@ -33,8 +35,10 @@ namespace MonoFantasy.States
 
         public override void LoadContent()
         {
+            camera = new Camera();
+
             _map = new Map(this);
-            _map.LoadContent();
+            //_map.LoadContent();
             
             #region TemporaryLoad
             player = new Player(_map);
@@ -46,14 +50,14 @@ namespace MonoFantasy.States
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, null, transformMatrix: camera.Transform);
             //spriteBatch.Draw(map, new Rectangle(0, 0, map.Width, map.Height), Color.White);
-            _map.Draw(gameTime, spriteBatch);
-
+            //_map.Draw(gameTime, spriteBatch);
+            
             #region TemporaryDraw
             player.Draw(gameTime, spriteBatch);
             #endregion
-
+            
             spriteBatch.End();
 
         }
@@ -65,8 +69,8 @@ namespace MonoFantasy.States
         public override void Update(GameTime gameTime)
         {
             //throw new NotImplementedException();
-            _map.Update();
-
+            //_map.Update();
+            camera.Follow(player);
             #region TemporaryUpdate
             player.Update();
             #endregion

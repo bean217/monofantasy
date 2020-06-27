@@ -51,6 +51,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Controls\Image.cs" />
     <Compile Include="Controls\TextBox.cs" />
+    <Compile Include="Logic\Camera\Camera.cs" />
     <Compile Include="Logic\Map\BlockData.cs" />
     <Compile Include="Logic\Map\Chunk.cs" />
     <Compile Include="Logic\Map\Collision.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Logic\Map\Tile.cs" />
     <Compile Include="Logic\Map\MapTextureReader.cs" />
     <Compile Include="Logic\Player\Player.cs" />
+    <Compile Include="Logic\Player\Sprite.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

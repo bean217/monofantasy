@@ -12,7 +12,7 @@ namespace MonoFantasy.Logic.Map
     class Tile
     {
         public BlockData blockData;
-        private Layer _layer;
+        public Layer _layer;
         private static Vector2 size;
         private Vector2 drawPoint;
 
@@ -29,13 +29,16 @@ namespace MonoFantasy.Logic.Map
             this.blockData = blockData;
             if (blockData.isStatic)
             {
-                texture = new StaticTexture2(null, drawRect, blockData);
+                texture = new StaticTexture2(this, null, drawRect, blockData);
             } else
             {
-                texture = new AnimatedTexture2(null, drawRect, blockData);
+                texture = new AnimatedTexture2(this, null, drawRect, blockData);
             }
             // static: a texture image/map to reference, a rectangle for where the image is drawn in the world
             // animated: same as static, but include number of frames, image area vector, and frame change period (per 30 frames)
+        
+            
+        
         }
 
         public void LoadContent()

@@ -16,6 +16,9 @@ namespace MonoFantasy
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static readonly int SCREEN_WIDTH = 1280;
+        public static readonly int SCREEN_HEIGHT = 720;
+
         public string Release;
 
         public State _currentState;
@@ -35,8 +38,8 @@ namespace MonoFantasy
 
             Release = "Alpha 1.0";
 
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
         }
 
         /// <summary>

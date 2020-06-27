@@ -11,6 +11,8 @@ namespace MonoFantasy.Content.ITexture
 {
     class StaticTexture2 : ITexture
     {
+        public Tile tile;
+
         public Texture2D texture;
         public int startY;
         public int startX;
@@ -20,8 +22,9 @@ namespace MonoFantasy.Content.ITexture
         private Rectangle drawRect;
         private Rectangle srcRect;
 
-        public StaticTexture2(Texture2D texture, Rectangle drawRect, BlockData blockData)
+        public StaticTexture2(Tile tile, Texture2D texture, Rectangle drawRect, BlockData blockData)
         {
+            this.tile = tile;
             this.texture = texture;
             this.drawRect = drawRect;
             startY = blockData.startY;
@@ -34,7 +37,8 @@ namespace MonoFantasy.Content.ITexture
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 ;
-            spriteBatch.Draw(texture, drawRect, srcRect, Color.White);
+            spriteBatch.Draw(texture, drawRect, srcRect, Color.White, 0,
+                Vector2.Zero, SpriteEffects.None, tile._layer.layerDepth);
         }
 
         public void setTexture(Texture2D texture)

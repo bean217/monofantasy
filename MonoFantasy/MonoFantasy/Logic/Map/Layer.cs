@@ -11,17 +11,29 @@ namespace MonoFantasy.Logic.Map
     class Layer
     {
         public Chunk _chunk;
-        private int _layerNum;
+        public int _layerNum;
         public string layerDir;
         public static readonly string TILE_FILE = "tiles.txt";
 
-        private Tile[,] _tiles;
+        public float layerDepth;
 
+        private Tile[,] _tiles;
+        
         public Layer(Chunk chunk, int layerNum)
         {
+
             _tiles = new Tile[Chunk.WIDTH, Chunk.HEIGHT];
             _chunk = chunk;
             _layerNum = layerNum;
+
+            if (_layerNum == 0)
+            {
+                layerDepth = 1.0f;
+            } else
+            {
+                layerDepth = (float)(((_chunk.numLayers - 1) - _layerNum) * 0.001f);
+            }
+
             layerDir = $"{_chunk._chunkDir}/layer{_layerNum}";
             BlockData[,] layerBlockData = LayerTileReader.getLayerData($"{layerDir}/{TILE_FILE}", _chunk.chunkTileData);
             _tiles = new Tile[ConfigInfo.CHUNK_WIDTH, ConfigInfo.CHUNK_HEIGHT];

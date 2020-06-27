@@ -30,6 +30,8 @@ namespace MonoFantasy.Logic.Map
 
         // collection of graphic layers
         private List<Layer> _layers;
+        // number of layers in chunk
+        public int numLayers;
         // 2D array of collision layer
         private Collision[,] _collisionLayer;
         // Dictionary of all tile textures in chunk
@@ -88,13 +90,13 @@ namespace MonoFantasy.Logic.Map
                     {
                         _layers.Add(new Layer(this, layerNum));
                     }
+                    numLayers = int.Parse(_config[ConfigInfo.NUM_LAYERS_REF]);
                 } catch (Exception e)
                 {
                     Console.WriteLine($"ERROR: {e.Message}");
                     Console.WriteLine(e.StackTrace);
                     throw new Exception(e.Message, e);
                 }
-
             } catch (Exception e)
             {
                 Console.WriteLine($"ERROR: {e.Message}");

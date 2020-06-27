@@ -11,6 +11,8 @@ namespace MonoFantasy.Content.ITexture
 {
     class AnimatedTexture2 : ITexture
     {
+        public Tile tile;
+
         public Texture2D texture;
         public int startY;
         public int startX;
@@ -22,8 +24,10 @@ namespace MonoFantasy.Content.ITexture
         private int frameIncrement;
 
         private Rectangle drawRect;
-        public AnimatedTexture2(Texture2D texture, Rectangle drawRect, BlockData blockData)
+        public AnimatedTexture2(Tile tile, Texture2D texture, Rectangle drawRect, BlockData blockData)
         {
+            this.tile = tile;
+
             this.texture = texture;
             this.drawRect = drawRect;
             startY = blockData.startY;
@@ -43,7 +47,8 @@ namespace MonoFantasy.Content.ITexture
             int x = currentFrame % width;
             Rectangle srcRect = new Rectangle(width * x, height * y, width, height);
             
-            spriteBatch.Draw(texture, drawRect, srcRect, Color.White);
+            spriteBatch.Draw(texture, drawRect, srcRect, Color.White, 0, 
+                Vector2.Zero, SpriteEffects.None, tile._layer.layerDepth);
         }
 
         public void setTexture(Texture2D texture)

@@ -12,18 +12,16 @@ using System.Threading.Tasks;
 
 namespace MonoFantasy.Logic.Player
 {
-    class Player
+    class Player : Sprite
     {
         public Map.Map map;
         public int gameNum;
         public Data initPlayerData;
-        public Vector2 Position;
+        
         public GraphicsDevice graphics;
         public string playerDir;
 
-        private Texture2D texture;
-
-        public Player(Map.Map map)
+        public Player(Map.Map map) : base()
         {
             this.map = map;
             gameNum = map._gameState._gameNum;
@@ -33,35 +31,47 @@ namespace MonoFantasy.Logic.Player
             playerDir = $"{map._gameState._gameDir}/player";
         }
 
-        public void LoadContent()
+        public override void LoadContent()
         {
             texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
+            
+            map.LoadContent();
         }
 
-        public void Update()
+        public override void Update()
         {
-            int speed = 4;
+            //Update Map
+            map.Update();
+
+            //Update Player Movement
+            var velocity = new Vector2();
+            var speed = 3f;
+
             if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                Position += new Vector2(0, -1) * speed;
-            } 
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                Position += new Vector2(0, 1) * speed;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                Position += new Vector2(1, 0) * speed;
-            }
+                velocity.Y = -speed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+                velocity.Y = speed;
+
             if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                Position += new Vector2(-1, 0) * speed;
-            }
+                velocity.X = -speed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+                velocity.X = speed;
+
+            Position += velocity;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        //This method will be fixed later to implement player sprite animation
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, texture.Width * 2, texture.Height * 2), Color.White);
+            //Draw Map
+            map.Draw(gameTime, spriteBatch);
+
+            //Draw Player
+            int playerWidth = texture.Width * 2;
+            int playerHeight = texture.Height * 2;
+            spriteBatch.Draw(texture, new Rectangle((int)Position.X - (playerWidth / 2), (int)Position.Y - (playerWidth / 2), playerWidth, playerHeight), 
+                null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.5f);
+            
         }
 
 
@@ -76,6 +86,8 @@ namespace MonoFantasy.Logic.Player
         public class Data
         {
             public static readonly string SPAWN_VECTOR_KEY= "spawn";
+            
+            // The starting spawn location of the player based on the game tile system
             public Vector2 spawn;
 
             public Data(Dictionary<string, string> initData)
