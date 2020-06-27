@@ -1,0 +1,12 @@
+#Static Texture Format: <Tile Name> <0 for static> <X pos in png> <Y pos in png>
+#Animated Texture Format: <Tile Name> <1 for animated> <X pos in png> <Y pos in png> <no. frames> <size vector width> <size vector height> <frame change period (per 30 frames)
+GREEN_GRASS 0 0 0
+DARK_GREEN_GRASS 0 1 0
+MAROON_CARPET 0 2 0
+LIGHT_MAROON_CARPET 0 0 1
+GOLD 0 1 1
+BLACK 0 2 1 
+DARK_STONE 0 0 2
+STONE 0 1 2
+PURPLE_CARPET 0 2 2
+HOT_PINK_CARPET 0 0 3

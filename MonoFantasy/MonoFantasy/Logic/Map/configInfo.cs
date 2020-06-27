@@ -12,9 +12,9 @@ namespace MonoFantasy.Logic.Map
         public static readonly int CHUNK_WIDTH = 41;
         public static readonly int CHUNK_HEIGHT = 23;
         // number of chunks in a map (width)
-        public static readonly int MAP_WIDTH = 1;
+        public static readonly int MAP_WIDTH = 4;
         // number of chunks in a map (height)
-        public static readonly int MAP_HEIGHT = 1;
+        public static readonly int MAP_HEIGHT = 4;
         public static readonly string TEXTURE_FILE_REF = "textureFile";
         public static readonly string NUM_LAYERS_REF = "numLayers";
         public static readonly string COLLISION_FILE_REF = "collisionFile";

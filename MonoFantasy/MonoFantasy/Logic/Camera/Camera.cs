@@ -53,7 +53,7 @@ namespace MonoFantasy.Logic.Camera
 
             Transform = position * offset;
             Vector2 pos = new Vector2(Transform.Translation.X, Transform.Translation.Y);
-            Console.WriteLine($"          Vector[{pos.X / 32}, {pos.Y / 32}]");
+            //Console.WriteLine($"          Vector[{pos.X / 32}, {pos.Y / 32}]");
         }
     }
 }

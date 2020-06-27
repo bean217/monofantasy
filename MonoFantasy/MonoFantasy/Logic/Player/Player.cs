@@ -17,6 +17,7 @@ namespace MonoFantasy.Logic.Player
         public Map.Map map;
         public int gameNum;
         public Data initPlayerData;
+        private Vector2 currentChunk;
         
         public GraphicsDevice graphics;
         public string playerDir;
@@ -29,6 +30,7 @@ namespace MonoFantasy.Logic.Player
             Position = new Vector2(initPlayerData.spawn.X, initPlayerData.spawn.Y);
             graphics = map._gameState._graphicsDevice;
             playerDir = $"{map._gameState._gameDir}/player";
+            PlayerChunkUpdate();
         }
 
         public override void LoadContent()
@@ -40,17 +42,23 @@ namespace MonoFantasy.Logic.Player
 
         public override void Update()
         {
+
+            PlayerChunkUpdate();
+            
             //Update Map
-            map.Update();
+            map.Update(currentChunk);
 
             PositionUpdate();
+
+            //Console.WriteLine($"     CURRENT CHUNK: Vector[{currentChunk.X}, {currentChunk.Y}]");
+            //Console.WriteLine($"          POSITION: Vector[{getPosition().X}, {getPosition().Y}]");
         }
 
         //This method will be fixed later to implement player sprite animation
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //Draw Map
-            map.Draw(gameTime, spriteBatch);
+            map.Draw(gameTime, spriteBatch, currentChunk);
 
             //Draw Player
             spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, Rectangle.Height), 
@@ -58,11 +66,16 @@ namespace MonoFantasy.Logic.Player
             
         }
 
+        private void PlayerChunkUpdate()
+        {
+            currentChunk = new Vector2((int)(Position.X / (ConfigInfo.CHUNK_WIDTH * ConfigInfo.TILE_SIZE)),
+                (int)(Position.Y / (ConfigInfo.CHUNK_HEIGHT * ConfigInfo.TILE_SIZE)));
+        }
         private void PositionUpdate()
         {
             //Update Player Movement
             var velocity = new Vector2();
-            var speed = 3f;
+            var speed = 10f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
                 velocity.Y += -speed;

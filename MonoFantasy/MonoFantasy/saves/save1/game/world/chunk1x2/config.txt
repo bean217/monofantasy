@@ -1,0 +1,3 @@
+textureFile=texture_map.png
+numLayers=1
+collisionFile=collision.txt

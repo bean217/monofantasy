@@ -50,8 +50,17 @@ namespace MonoFantasy.Logic.Map
                 chunk.LoadContent();
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 currentChunk)
         {
+            List<Chunk> updateChunks = getUpdateChunksList(currentChunk);
+
+            foreach (Chunk chunk in updateChunks)
+            {
+                if (chunk != null)
+                    chunk.Draw(gameTime, spriteBatch);
+            }
+
+            /*
             for (int y = 0; y < HEIGHT; y++)
             {
                 for (int x = 0; x < WIDTH; x++)
@@ -59,10 +68,20 @@ namespace MonoFantasy.Logic.Map
                     _chunks[x, y].Draw(gameTime, spriteBatch);
                 }
             }
+            */
         }
 
-        public void Update()
+        public void Update(Vector2 currentChunk)
         {
+            List<Chunk> updateChunks = getUpdateChunksList(currentChunk);
+
+            foreach (Chunk chunk in updateChunks)
+            {
+                if (chunk != null)
+                    chunk.Update();
+            }
+
+            /*
             for (int y = 0; y < HEIGHT; y++)
             {
                 for (int x = 0; x < WIDTH; x++)
@@ -70,6 +89,35 @@ namespace MonoFantasy.Logic.Map
                     _chunks[x, y].Update();
                 }
             }
+            */
+        }
+
+        private List<Chunk> getUpdateChunksList(Vector2 currentChunk)
+        {
+            int X = (int)currentChunk.X;
+            int Y = (int)currentChunk.Y;
+            Chunk center = _chunks[X, Y];
+
+            bool topVertCheck = Y > 0;
+            bool botVertCheck = Y < ConfigInfo.MAP_HEIGHT - 1;
+            bool leftHorizCheck = X > 0;
+            bool rightHorizCheck = X < ConfigInfo.MAP_WIDTH - 1;
+
+            Chunk top = topVertCheck ? _chunks[X, Y - 1] : null;
+            Chunk topLeft = topVertCheck && leftHorizCheck ? _chunks[X - 1, Y - 1] : null;
+            Chunk topRight = topVertCheck && rightHorizCheck ? _chunks[X + 1, Y - 1] : null;
+            Chunk bottom = botVertCheck ? _chunks[X, Y + 1] : null;
+            Chunk bottomLeft = botVertCheck && leftHorizCheck ? _chunks[X - 1, Y + 1] : null;
+            Chunk bottomRight = botVertCheck && rightHorizCheck ? _chunks[X + 1, Y + 1] : null;
+            Chunk left = leftHorizCheck ? _chunks[X - 1, Y] : null;
+            Chunk right = rightHorizCheck ? _chunks[X + 1, Y] : null; ;
+
+            List<Chunk> updateChunks = new List<Chunk>()
+            {
+                center, top, topLeft, topRight, bottom, bottomLeft, bottomRight, left, right
+            };
+
+            return updateChunks;
         }
     }
 }
