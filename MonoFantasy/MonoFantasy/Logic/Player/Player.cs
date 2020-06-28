@@ -219,11 +219,29 @@ namespace MonoFantasy.Logic.Player
 
                     if ((Velocity.X < 0 && IsTouchingLeft(tile)) ||
                         (Velocity.X > 0 && IsTouchingRight(tile)))
-                        Velocity.X = 0;
+                    {
+                        // Find X offset from player and tile
+                        int offset = 0;
+                        if (Velocity.X < 0)
+                            offset = (tile.drawRect.Right - Rectangle.Left);
+                        else if (Velocity.X > 0)
+                            offset = (tile.drawRect.Left - Rectangle.Right);
+                        Velocity.X = offset;
+                    }
+                        
 
                     if ((Velocity.Y > 0 && IsTouchingTop(tile)) ||
                         (Velocity.Y < 0 && IsTouchingBottom(tile)))
-                        Velocity.Y = 0;
+                    {
+                        // Find Y offset from player and tile
+                        int offset = 0;
+                        if (Velocity.Y < 0)
+                            offset = (tile.drawRect.Bottom - Rectangle.Top);
+                        else if (Velocity.Y > 0)
+                            offset = (tile.drawRect.Top - Rectangle.Bottom);
+                        Velocity.Y = offset;
+                    }
+                        
                 }
             }
             return Vector2.Zero;
