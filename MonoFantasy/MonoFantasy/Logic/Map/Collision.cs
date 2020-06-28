@@ -9,6 +9,8 @@ namespace MonoFantasy.Logic.Map
     public enum Collision
     {
         COLLIDE,
-        NO_COLLIDE
+        NO_COLLIDE,
+        DOOR,
+        NONE
     }
 }

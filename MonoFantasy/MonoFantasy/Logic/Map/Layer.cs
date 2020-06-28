@@ -17,7 +17,7 @@ namespace MonoFantasy.Logic.Map
 
         public float layerDepth;
 
-        private Tile[,] _tiles;
+        public Tile[,] _tiles;
         
         public Layer(Chunk chunk, int layerNum)
         {

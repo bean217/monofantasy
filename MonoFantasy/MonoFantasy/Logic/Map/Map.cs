@@ -18,7 +18,7 @@ namespace MonoFantasy.Logic.Map
         private int HEIGHT;
         public readonly static string CONFIG_FILENAME = "config.txt";
         public GameState _gameState;
-        private Chunk[,] _chunks;
+        public Chunk[,] _chunks;
         public string _mapDir;
 
         public static readonly string TEXTURE_MAPPINGS_FILE = "texture_mappings.txt";
@@ -92,7 +92,7 @@ namespace MonoFantasy.Logic.Map
             */
         }
 
-        private List<Chunk> getUpdateChunksList(Vector2 currentChunk)
+        public List<Chunk> getUpdateChunksList(Vector2 currentChunk)
         {
             int X = (int)currentChunk.X;
             int Y = (int)currentChunk.Y;
@@ -114,7 +114,7 @@ namespace MonoFantasy.Logic.Map
 
             List<Chunk> updateChunks = new List<Chunk>()
             {
-                center, top, topLeft, topRight, bottom, bottomLeft, bottomRight, left, right
+                topLeft, top, topRight, left, center, right, bottomLeft, bottom, bottomRight
             };
 
             return updateChunks;

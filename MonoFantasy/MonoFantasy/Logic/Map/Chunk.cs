@@ -29,11 +29,11 @@ namespace MonoFantasy.Logic.Map
         public static readonly int HEIGHT = 23;
 
         // collection of graphic layers
-        private List<Layer> _layers;
+        public List<Layer> _layers;
         // number of layers in chunk
         public int numLayers;
         // 2D array of collision layer
-        private Collision[,] _collisionLayer;
+        public Collision[,] _collisionLayer;
         // Dictionary of all tile textures in chunk
         public Dictionary<string, BlockData> chunkTileData;
 

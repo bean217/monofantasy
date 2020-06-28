@@ -29,7 +29,23 @@ namespace MonoFantasy.Logic.Map
                     var strLine = line.Split(' ');
                     foreach (string box in strLine)
                     {
-                        collisions[x, y] = box.Equals("0") ? Collision.NO_COLLIDE : Collision.COLLIDE;
+                        Collision collision;
+                        switch (box)
+                        {
+                            case "0":
+                                collision = Collision.NO_COLLIDE;
+                                break;
+                            case "1":
+                                collision = Collision.COLLIDE;
+                                break;
+                            case "2":
+                                collision = Collision.DOOR;
+                                break;
+                            default:
+                                collision = Collision.NONE;
+                                break;
+                        }
+                        collisions[x, y] = collision;
                         x = (x + 1) % ConfigInfo.CHUNK_WIDTH;
                     }
                     y = (y + 1) % ConfigInfo.CHUNK_HEIGHT;
@@ -37,6 +53,7 @@ namespace MonoFantasy.Logic.Map
             } catch (Exception e)
             {
                 Console.WriteLine($"ERROR: {e.Message}");
+                throw e;
             } finally
             {
                 if (sr != null)
