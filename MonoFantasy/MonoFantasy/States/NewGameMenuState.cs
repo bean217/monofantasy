@@ -15,14 +15,16 @@ namespace MonoFantasy.States
 {
     class NewGameMenuState : State
     {
-
+        // List of state UI Components
         private List<Component> Components;
+        private Dictionary<int, Button> startButtons;
 
         public NewGameMenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
             //LoadContent();
         }
 
+        // Loads UI fonts, textures, images, text boxed and buttons
         public override void LoadContent()
         {
             #region Fonts
@@ -102,6 +104,11 @@ namespace MonoFantasy.States
                 saveTwoButton,
                 saveThreeButton
             };
+
+            startButtons = new Dictionary<int, Button>();
+            startButtons.Add(1, saveOneButton);
+            startButtons.Add(2, saveTwoButton);
+            startButtons.Add(3, saveThreeButton);
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -112,41 +119,72 @@ namespace MonoFantasy.States
 
         private void SaveOneButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save1/game";
-            if (System.IO.Directory.Exists(dir)) 
+            int saveNum = 1;
+            startNewGame(saveNum);
+            /*
+            Button button = startButtons[1];
+            // If the button has already been pressed, do nothing
+            if (!button.Pressed)
             {
-                // Should use threading at some point later
-                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
-                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
-                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                string dir = "saves/save1/game";
+
+                GameState gameState;
+                button.Pressed = true;
+                button.Text = "Loading...";
+                Thread thread = new Thread(() => {
+                    if (System.IO.Directory.Exists(dir))
+                    {
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
+                            Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                            Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                    }
+                    gameState = new GameState(_game, _graphicsDevice, _content, this, 1);
+                    _game.ChangeState(gameState);
+                    button.Text = "Ongoing Game";
+                    button.Pressed = false;
+                });
+                thread.Start();
             }
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 1));
+            */
         }
 
         private void SaveTwoButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save2/game";
-            if (System.IO.Directory.Exists(dir))
-            {
-                // Should use threading at some point later
-                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
-                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
-                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
-            }
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 2));
+            int saveNum = 2;
+            startNewGame(saveNum);
         }
 
         private void SaveThreeButton_Click(object sender, EventArgs e)
         {
-            string dir = "saves/save3/game";
-            if (System.IO.Directory.Exists(dir))
+            int saveNum = 3;
+            startNewGame(saveNum);
+        }
+
+        private void startNewGame(int saveNum)
+        {
+            Button button = startButtons[saveNum];
+            // If the button has already been pressed, do nothing
+            if (!button.Pressed)
             {
-                // Should use threading at some point later
-                Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
-                    Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
-                    Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                string dir = $"saves/save{saveNum}/game";
+
+                GameState gameState;
+                button.Pressed = true;
+                button.Text = "Loading...";
+                Thread thread = new Thread(() => {
+                    if (System.IO.Directory.Exists(dir))
+                    {
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(dir,
+                            Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                            Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently);
+                    }
+                    gameState = new GameState(_game, _graphicsDevice, _content, this, saveNum);
+                    _game.ChangeState(gameState);
+                    button.Text = "Ongoing Game";
+                    button.Pressed = false;
+                });
+                thread.Start();
             }
-            _game.ChangeState(new GameState(_game, _graphicsDevice, _content, this, 3));
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

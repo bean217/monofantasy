@@ -90,7 +90,7 @@ namespace MonoFantasy.Logic.Player
                 Velocity.X += speed;
 
             
-            var test = checkTileCollisions();
+            checkTileCollisions();
 
             Vector2 newPosition = Position;
             newPosition += Velocity;
@@ -120,7 +120,7 @@ namespace MonoFantasy.Logic.Player
             return new Vector2((int)(Position.X / ConfigInfo.TILE_SIZE), (int)(Position.Y / ConfigInfo.TILE_SIZE));
         }
 
-        private Vector2 checkTileCollisions()
+        private void checkTileCollisions()
         {
             Vector2 potentialPos = Position + Velocity;
             // get list of tiles around player based on player rectangle size
@@ -244,7 +244,6 @@ namespace MonoFantasy.Logic.Player
                         
                 }
             }
-            return Vector2.Zero;
         }
 
         public class Data

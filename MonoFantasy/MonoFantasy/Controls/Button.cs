@@ -26,6 +26,7 @@ namespace MonoFantasy
         #endregion
 
         #region Properties
+        public Boolean Pressed;
 
         public event EventHandler Click;
 
@@ -55,6 +56,7 @@ namespace MonoFantasy
 
         public Button(Texture2D texture, SpriteFont font)
         {
+            Pressed = false;
             Texture = texture;
             Font = font;
             PenColor = Color.Black;

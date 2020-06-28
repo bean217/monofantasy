@@ -1,2 +1,0 @@
-#Spawn <X> <Y> -> coordinates are relative to tiles
-spawn=20 11
