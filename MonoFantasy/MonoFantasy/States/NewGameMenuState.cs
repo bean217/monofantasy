@@ -18,6 +18,7 @@ namespace MonoFantasy.States
         // List of state UI Components
         private List<Component> Components;
         private Dictionary<int, Button> startButtons;
+        private Button backButton;
 
         public NewGameMenuState(MainGame game, GraphicsDevice graphicsDevice, ContentManager content, State lastState) : base(game, graphicsDevice, content, lastState)
         {
@@ -109,12 +110,17 @@ namespace MonoFantasy.States
             startButtons.Add(1, saveOneButton);
             startButtons.Add(2, saveTwoButton);
             startButtons.Add(3, saveThreeButton);
+            this.backButton = backButton;
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Back");
-            _game.ChangeState(_lastState);
+            if (!backButton.Pressed) 
+            {
+                Console.WriteLine("Back");
+                _game.ChangeState(_lastState);
+            }
+            
         }
 
         private void SaveOneButton_Click(object sender, EventArgs e)
@@ -162,15 +168,20 @@ namespace MonoFantasy.States
 
         private void startNewGame(int saveNum)
         {
-            Button button = startButtons[saveNum];
+            Button startButton = startButtons[saveNum];
             // If the button has already been pressed, do nothing
-            if (!button.Pressed)
+            if (!startButton.Pressed)
             {
                 string dir = $"saves/save{saveNum}/game";
 
                 GameState gameState;
-                button.Pressed = true;
-                button.Text = "Loading...";
+                //button.Pressed = true;
+                foreach (var button in startButtons.Values)
+                {
+                    startButton.Pressed = true;
+                }
+                backButton.Pressed = true;
+                startButton.Text = "Loading...";
                 Thread thread = new Thread(() => {
                     if (System.IO.Directory.Exists(dir))
                     {
@@ -180,8 +191,13 @@ namespace MonoFantasy.States
                     }
                     gameState = new GameState(_game, _graphicsDevice, _content, this, saveNum);
                     _game.ChangeState(gameState);
-                    button.Text = "Ongoing Game";
-                    button.Pressed = false;
+                    startButton.Text = "Ongoing Game";
+                    //button.Pressed = false;
+                    foreach (var button in startButtons.Values)
+                    {
+                        startButton.Pressed = false;
+                    }
+                    backButton.Pressed = false;
                 });
                 thread.Start();
             }

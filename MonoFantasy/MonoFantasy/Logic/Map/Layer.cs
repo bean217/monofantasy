@@ -35,7 +35,7 @@ namespace MonoFantasy.Logic.Map
             }
 
             layerDir = $"{_chunk._chunkDir}/layer{_layerNum}";
-            BlockData[,] layerBlockData = LayerTileReader.getLayerData($"{layerDir}/{TILE_FILE}", _chunk.chunkTileData);
+            BlockData[,] layerBlockData = LayerTileReader.getLayerData($"{layerDir}/{TILE_FILE}", _chunk._map.chunkTileData);
             _tiles = new Tile[ConfigInfo.CHUNK_WIDTH, ConfigInfo.CHUNK_HEIGHT];
             for (int j = 0; j < ConfigInfo.CHUNK_HEIGHT; j++)
             {

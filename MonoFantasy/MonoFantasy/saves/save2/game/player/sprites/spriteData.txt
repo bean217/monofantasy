@@ -1,0 +1,1 @@
+#<sprite texture name with extension> <img startX> <img startY> <img area width> <img area height> <num frames>

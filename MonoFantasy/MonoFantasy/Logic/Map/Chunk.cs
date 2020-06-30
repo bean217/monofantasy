@@ -35,7 +35,7 @@ namespace MonoFantasy.Logic.Map
         // 2D array of collision layer
         public Collision[,] _collisionLayer;
         // Dictionary of all tile textures in chunk
-        public Dictionary<string, BlockData> chunkTileData;
+        //public Dictionary<string, BlockData> chunkTileData;
 
         public Chunk(Map map, int chunkPosX, int chunkPosY)
         {
@@ -44,7 +44,7 @@ namespace MonoFantasy.Logic.Map
             _map = map;
             _chunkDir = $"{_map._mapDir}/chunk{_chunkPosX}x{_chunkPosY}";
             _layers = new List<Layer>();
-            chunkTileData = MapTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
+            //chunkTileData = MapTextureReader.getChunkTiles($"{_chunkDir}/{TILE_TEXTURE_DATA_FILE}");
             readConfig();
         }
 
