@@ -18,7 +18,7 @@ namespace MonoFantasy.Logic.Camera
             //int X = -target.Position.X - (target.Rectangle.Width / 2);
             //int Y = ;
 
-            Console.WriteLine($"     PLAYER[{target.Position.X / 32}, {target.Position.Y / 32}]");
+            //Console.WriteLine($"     PLAYER[{target.Position.X / 32}, {target.Position.Y / 32}]");
 
             float X = -(target.Position.X + (target.Rectangle.Width / 2));
             float Y = -(target.Position.Y + (target.Rectangle.Height / 2));

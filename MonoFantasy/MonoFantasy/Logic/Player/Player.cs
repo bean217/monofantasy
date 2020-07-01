@@ -16,6 +16,7 @@ namespace MonoFantasy.Logic.Player
     {
         public Map.Map map;
         public int gameNum;
+        public float drawDepth;
         public Data initPlayerData;
         // position of the current chunk
         private Vector2 currentChunk;
@@ -25,8 +26,16 @@ namespace MonoFantasy.Logic.Player
 
         public readonly float speed = 5f;
 
+        public ITexture itexture; //NEW
+
+        public MotionState currentState;
+        public MotionState futureState;
+
         public Player(Map.Map map) : base()
         {
+            drawDepth = ConfigInfo.PLAYER_DRAW_DEPTH;
+            currentState = MotionState.IDLE_DOWN;
+            futureState = currentState;
             this.map = map;
             gameNum = map._gameState._gameNum;
             initPlayerData = InitReader.Read(gameNum);
@@ -39,7 +48,7 @@ namespace MonoFantasy.Logic.Player
         public override void LoadContent()
         {
             texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
-            
+            itexture = new AnimatedSprite(this, LoadTexture.Load(graphics, $"{playerDir}/sprites/spriteAtlas.png"), Rectangle); // NEW
             map.LoadContent();
         }
 
@@ -52,6 +61,7 @@ namespace MonoFantasy.Logic.Player
             map.Update(currentChunk);
 
             PositionUpdate();
+            itexture.Update(); // NEW
 
             //Console.WriteLine($"     CURRENT CHUNK: Vector[{currentChunk.X}, {currentChunk.Y}]");
             //Console.WriteLine($"          POSITION: Vector[{getPosition().X}, {getPosition().Y}]");
@@ -64,8 +74,9 @@ namespace MonoFantasy.Logic.Player
             map.Draw(gameTime, spriteBatch, currentChunk);
 
             //Draw Player
-            spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, Rectangle.Height), 
-                null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.5f);
+            itexture.Draw(gameTime, spriteBatch); // NEW
+            //spriteBatch.Draw(texture, new Rectangle((int)Position.X, (int)Position.Y, Rectangle.Width, Rectangle.Height), 
+            //    null, Color.White, 0, Vector2.Zero, SpriteEffects.None, drawDepth);
             
         }
 
@@ -91,6 +102,9 @@ namespace MonoFantasy.Logic.Player
 
             
             checkTileCollisions();
+
+            //CHANGE MOTION STATE HERE
+            updateMotionState(); // NEW
 
             Vector2 newPosition = Position;
             newPosition += Velocity;
@@ -154,10 +168,6 @@ namespace MonoFantasy.Logic.Player
                 }
             }
 
-            // print out surrounding tiles coordinates to check if positions are accurate
-            foreach (var vector in evalTileVectors)
-                Console.WriteLine($"     VECTOR: [{vector.X}, {vector.Y}]");
-
             // get chunk object by tile's map position
             Chunk[,] tileChunks = new Chunk[evalTilesWidth, evalTilesHeight];
             for (int y = 0; y < evalTilesHeight; y++)
@@ -171,13 +181,6 @@ namespace MonoFantasy.Logic.Player
                         tileChunks[x, y] = map._chunks[(int)(vector.X / (ConfigInfo.CHUNK_WIDTH * ConfigInfo.TILE_SIZE)), 
                             (int)(vector.Y / (ConfigInfo.CHUNK_HEIGHT * ConfigInfo.TILE_SIZE))];
                 }
-            }
-            foreach (var chunk in tileChunks)
-            {
-                if (chunk != null)
-                    Console.WriteLine($"     CHUNK: [{chunk._chunkPosX}, {chunk._chunkPosY}]");
-                else
-                    Console.WriteLine($"     CHUNK: NULL");
             }
 
             // get tile object by tile's relative chunk position
@@ -200,13 +203,6 @@ namespace MonoFantasy.Logic.Player
                         (int)((vector.Y % (ConfigInfo.CHUNK_HEIGHT * ConfigInfo.TILE_SIZE)) / ConfigInfo.TILE_SIZE)];
                     tiles[x, y] = tile;
                 }
-            }
-            foreach (var tile in tiles)
-            {
-                if (tile != null)
-                    Console.WriteLine($"          TILE: [{tile.tilePosX}, {tile.tilePosY}]");
-                else
-                    Console.WriteLine($"          TILE: NULL");
             }
 
             for (int y = 0; y < evalTilesHeight; y++)
@@ -246,6 +242,43 @@ namespace MonoFantasy.Logic.Player
             }
         }
 
+        private void updateMotionState()
+        {
+
+            if (Velocity.X > 0)
+                futureState = MotionState.MOVE_RIGHT;
+            else if (Velocity.X < 0)
+                futureState = MotionState.MOVE_LEFT;
+            if (Velocity.Y > 0 && Velocity.X == 0)
+                futureState = MotionState.MOVE_DOWN;
+            else if (Velocity.Y < 0 && Velocity.X == 0)
+                futureState = MotionState.MOVE_UP;
+            if (Velocity.X == 0 && Velocity.Y == 0)
+            {
+                switch (currentState)
+                {
+                    case MotionState.MOVE_RIGHT:
+                        futureState = MotionState.IDLE_RIGHT;
+                        break;
+                    case MotionState.MOVE_LEFT:
+                        futureState = MotionState.IDLE_LEFT;
+                        break;
+                    case MotionState.MOVE_UP:
+                        futureState = MotionState.IDLE_UP;
+                        break;
+                    case MotionState.MOVE_DOWN:
+                        futureState = MotionState.IDLE_DOWN;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (currentState != futureState)
+                currentState = futureState;
+                
+        }
+
         public class Data
         {
             public static readonly string SPAWN_VECTOR_KEY= "spawn";
@@ -280,8 +313,6 @@ namespace MonoFantasy.Logic.Player
                         if (line[0].Equals('#'))
                             continue;
                         string[] strLine = line.Split('=');
-                        Console.WriteLine("                   PRINTING");
-                        Console.WriteLine(line);
                         initData[strLine[0].ToLower()] = strLine[1];
                     }
 
@@ -301,6 +332,18 @@ namespace MonoFantasy.Logic.Player
                 }
                 return new Data(initData);
             }
+        }
+
+        public enum MotionState
+        {
+            MOVE_RIGHT,
+            MOVE_LEFT,
+            MOVE_UP,
+            MOVE_DOWN,
+            IDLE_RIGHT,
+            IDLE_LEFT,
+            IDLE_UP,
+            IDLE_DOWN
         }
     }
 }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Content\DirectoryCopy\CopyDir.cs" />
     <Compile Include="Content\FontLoader\FontLoader.cs" />
+    <Compile Include="Content\ITexture\AnimatedSprite.cs" />
     <Compile Include="Content\ITexture\AnimatedTexture2.cs" />
     <Compile Include="Content\ITexture\ITexture.cs" />
     <Compile Include="Content\ITexture\LoadTexture.cs" />

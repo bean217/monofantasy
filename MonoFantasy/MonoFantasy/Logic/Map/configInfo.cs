@@ -8,6 +8,9 @@ namespace MonoFantasy.Logic.Map
 {
     struct ConfigInfo
     {
+        public static readonly float PLAYER_DRAW_DEPTH = 0.5f;
+        public static readonly int PLAYER_WIDTH = 32;
+        public static readonly int PLAYER_HEIGHT = 32;
         public static readonly int TILE_SIZE = 32;
         public static readonly int CHUNK_WIDTH = 41;
         public static readonly int CHUNK_HEIGHT = 23;

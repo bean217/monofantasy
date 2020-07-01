@@ -18,7 +18,7 @@ namespace MonoFantasy.Logic.Player
 
         public Rectangle Rectangle
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, ConfigInfo.PLAYER_WIDTH, ConfigInfo.PLAYER_HEIGHT); }
         }
 
         public virtual void LoadContent()
