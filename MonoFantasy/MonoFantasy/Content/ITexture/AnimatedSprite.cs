@@ -27,9 +27,9 @@ namespace MonoFantasy.Content.ITexture
         private int frameUpdate;
         private int frameIncrement;
 
-        public AnimatedSprite(Player player, Texture2D textureAtlas, Rectangle drawRect)
+        public AnimatedSprite(Player player, Texture2D textureAtlas, Rectangle drawRect, string spriteData)
         {
-            spriteData = SpriteData.getSpriteData($"{player.playerDir}/sprites/spriteData.txt");
+            this.spriteData = SpriteData.getSpriteData(spriteData);
             this.textureAtlas = textureAtlas;
             this.drawRect = drawRect;
             this.player = player;

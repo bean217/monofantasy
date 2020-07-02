@@ -48,7 +48,7 @@ namespace MonoFantasy.Logic.Player
         public override void LoadContent()
         {
             texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
-            itexture = new AnimatedSprite(this, LoadTexture.Load(graphics, $"{playerDir}/sprites/spriteAtlas.png"), Rectangle); // NEW
+            itexture = new AnimatedSprite(this, LoadTexture.Load(graphics, $"{playerDir}/sprites/spriteAtlas.png"), Rectangle, $"{playerDir}/sprites/spriteData.txt"); // NEW
             map.LoadContent();
         }
 
