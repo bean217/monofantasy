@@ -15,6 +15,7 @@ namespace MonoFantasy.Logic.Player
 
         public Vector2 Position { get; set; }
         public Vector2 Velocity;
+        public Vector2 Direction;
 
         public Rectangle Rectangle
         {
@@ -34,6 +35,7 @@ namespace MonoFantasy.Logic.Player
         public Sprite()
         {
             Velocity = Vector2.Zero;
+            Direction = Vector2.Zero;
         }
 
         public virtual void Update()

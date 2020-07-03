@@ -61,6 +61,7 @@ namespace MonoFantasy.Content.ITexture
 
         public void Update()
         {
+            drawRect = player.Rectangle;
             updateSpriteData(player.currentState);
 
             if (totalFrames != 1) 
@@ -76,7 +77,7 @@ namespace MonoFantasy.Content.ITexture
             }
         }
 
-        private void updateSpriteData(Player.MotionState state)
+        public void updateSpriteData(Player.MotionState state)
         {
             SpriteData data = spriteData[state];
             startX = data.startX;
@@ -85,7 +86,9 @@ namespace MonoFantasy.Content.ITexture
             height = data.height;
             totalFrames = data.numFrames;
             frameUpdate = totalFrames != 1 ? spriteData[state].frameUpdate : 1;
-            drawRect = player.Rectangle;
+            //drawRect = player.Rectangle;
+            //frameIncrement = 0;
+            //currentFrame = 0;
         }
 
         public class SpriteData

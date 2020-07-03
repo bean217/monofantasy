@@ -47,7 +47,7 @@ namespace MonoFantasy.Logic.Player
 
         public override void LoadContent()
         {
-            texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
+            //texture = LoadTexture.Load(graphics, $"{playerDir}/sprites/sprite.png");
             itexture = new AnimatedSprite(this, LoadTexture.Load(graphics, $"{playerDir}/sprites/spriteAtlas.png"), Rectangle, $"{playerDir}/sprites/spriteData.txt"); // NEW
             map.LoadContent();
         }
@@ -91,14 +91,29 @@ namespace MonoFantasy.Logic.Player
             //var velocity = new Vector2();
             //Velocity = Vector2.Zero;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W)) 
+            {
                 Velocity.Y += -speed;
+                Direction.Y--;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
                 Velocity.Y += speed;
+                Direction.Y++;
+            }
+                
             if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
                 Velocity.X += -speed;
+                Direction.X--;
+            }
+                
             if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
                 Velocity.X += speed;
+                Direction.X++;
+            }
+                
 
             
             checkTileCollisions();
@@ -127,6 +142,7 @@ namespace MonoFantasy.Logic.Player
             Position = newPosition;
 
             Velocity = Vector2.Zero;
+            Direction = Vector2.Zero;
         }
 
         public Vector2 getPosition()
@@ -245,15 +261,15 @@ namespace MonoFantasy.Logic.Player
         private void updateMotionState()
         {
 
-            if (Velocity.X > 0)
+            if (Direction.X > 0 && Direction.Y == 0)
                 futureState = MotionState.MOVE_RIGHT;
-            else if (Velocity.X < 0)
+            else if (Direction.X < 0 && Direction.Y == 0)
                 futureState = MotionState.MOVE_LEFT;
-            if (Velocity.Y > 0 && Velocity.X == 0)
+            if (Direction.Y > 0)
                 futureState = MotionState.MOVE_DOWN;
-            else if (Velocity.Y < 0 && Velocity.X == 0)
+            else if (Direction.Y < 0)
                 futureState = MotionState.MOVE_UP;
-            if (Velocity.X == 0 && Velocity.Y == 0)
+            if (Direction.X == 0 && Direction.Y == 0)
             {
                 switch (currentState)
                 {
@@ -269,13 +285,29 @@ namespace MonoFantasy.Logic.Player
                     case MotionState.MOVE_DOWN:
                         futureState = MotionState.IDLE_DOWN;
                         break;
+                    case MotionState.IDLE_RIGHT:
+                        futureState = MotionState.IDLE_RIGHT;
+                        break;
+                    case MotionState.IDLE_LEFT:
+                        futureState = MotionState.IDLE_LEFT;
+                        break;
+                    case MotionState.IDLE_UP:
+                        futureState = MotionState.IDLE_UP;
+                        break;
+                    case MotionState.IDLE_DOWN:
+                        futureState = MotionState.IDLE_DOWN;
+                        break;
                     default:
                         break;
                 }
             }
 
             if (currentState != futureState)
+            {
+                //Console.WriteLine($"      CURRENT: {currentState}");
+                //Console.WriteLine($"       FUTURE: {futureState}");
                 currentState = futureState;
+            }
                 
         }
 
